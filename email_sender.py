@@ -7,12 +7,15 @@ resend.api_key = os.getenv("RESEND_API_KEY")
 def send_weekly_email(analysis_result, user_name="there"):
     subject = f"Your Weekly LeetCode Coaching Report – {datetime.now().strftime('%B %d, %Y')}"
     
+    # Fixed: Use regular string + replace instead of f-string with backslash
+    html_body = analysis_result.replace('\n', '<br>')
+    
     html_content = f"""
     <h2>Hi {user_name},</h2>
     <p>Here's your personalized LeetCode summary for this week:</p>
     
-    <div style="background-color: #f8f9fa; padding: 20px; border-radius: 8px;">
-        {analysis_result.replace('\n', '<br>')}
+    <div style="background-color: #f8f9fa; padding: 20px; border-radius: 8px; font-family: Arial, sans-serif; line-height: 1.6;">
+        {html_body}
     </div>
     
     <p style="margin-top: 30px;">
