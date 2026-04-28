@@ -3,7 +3,7 @@ import os
 from datetime import datetime, timedelta
 
 def get_recent_commits(repo_name, days=7):
-    g = Github(os.getenv("GITHUB_TOKEN"))
+    g = Github(os.getenv("GH_TOKEN"))
     repo = g.get_repo(repo_name)
     since = datetime.now() - timedelta(days=days)
     commits = repo.get_commits(since=since)
