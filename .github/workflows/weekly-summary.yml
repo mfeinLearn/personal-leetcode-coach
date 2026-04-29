@@ -21,7 +21,7 @@ jobs:
       - name: Run Weekly Analysis
         env:
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
-          GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
+          GITHUB_TOKEN: ${{secrets.GH_TOKEN }}
           REPO_NAME: ${{ secrets.REPO_NAME }}
           YOUR_EMAIL: ${{ secrets.YOUR_EMAIL }}
           RESEND_API_KEY: ${{ secrets.RESEND_API_KEY }}
