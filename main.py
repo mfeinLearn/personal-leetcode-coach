@@ -1,12 +1,14 @@
 from github_monitor import get_recent_commits
-# from claude_analyzer import analyze_code_with_claude
 from openai_analyzer import analyze_code_with_openai
 from email_sender import send_weekly_email
-from progress_tracker import get_recent_mistakes
+from progress_tracker import load_progress, save_progress
+from goals import load_goals
+from datetime import datetime
 import os
 
 def run_weekly_analysis():
     print("🔍 Checking for new code pushes...")
+    
     code_changes = get_recent_commits(os.getenv("REPO_NAME"), days=7)
     
     if not code_changes:
@@ -16,15 +18,26 @@ def run_weekly_analysis():
     combined_code = "\n\n".join([f"File: {item['filename']}\n{item['content']}" 
                                   for item in code_changes])
     
-    user_goal = "Graphs"
-    previous_mistakes = get_recent_mistakes()
+    # Load current goal from user_goals.json
+    user_goal = load_goals()["current_goal"]
+    print(f"Current focus area: {user_goal}")
     
-    print("🧠 Sending code to Claude for analysis...")
-    # analysis = analyze_code_with_claude(combined_code, user_goal, previous_mistakes)
-    analysis = analyze_code_with_openai(combined_code, user_goal, previous_mistakes)
+    print("🧠 Sending code to OpenAI for analysis...")
+    analysis = analyze_code_with_openai(combined_code, user_goal)
     
     print("📧 Sending weekly email...")
     send_weekly_email(analysis)
+    
+    # Save progress to user_progress.json
+    progress = load_progress()
+    progress["weekly_summaries"].append({
+        "date": str(datetime.now().date()),
+        "goal": user_goal,
+        "problems_analyzed": len(code_changes),
+        "summary_preview": analysis[:300] + "..." if len(analysis) > 300 else analysis
+    })
+    save_progress(progress)
+    print("✅ Progress saved to user_progress.json")
     
     print("✅ Weekly analysis complete!")
 
