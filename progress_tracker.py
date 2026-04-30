@@ -6,8 +6,15 @@ DATA_FILE = "user_progress.json"
 
 def load_progress():
     if os.path.exists(DATA_FILE):
-        with open(DATA_FILE, "r") as f:
-            return json.load(f)
+        try:
+            with open(DATA_FILE, "r") as f:
+                content = f.read().strip()
+                if not content:  # File is empty
+                    return {"mistakes": [], "weekly_summaries": []}
+                return json.loads(content)
+        except json.JSONDecodeError:
+            # File is corrupted or empty
+            return {"mistakes": [], "weekly_summaries": []}
     return {"mistakes": [], "weekly_summaries": []}
 
 def save_progress(data):
