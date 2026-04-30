@@ -34,7 +34,7 @@ def run_weekly_analysis():
         "date": str(datetime.now().date()),
         "goal": user_goal,
         "problems_analyzed": len(code_changes),
-        "summary_preview": analysis[:300] + "..." if len(analysis) > 300 else analysis
+        "full_feedback": analysis
     })
     save_progress(progress)
     print("✅ Progress saved to user_progress.json")
