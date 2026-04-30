@@ -17,6 +17,8 @@ Here is the code the user pushed this week:
 Previous mistakes the user has made (if any):
 {previous_mistakes}
 
+IMPORTANT: If the user has made similar mistakes in previous weeks, specifically call them out and explain how to finally break the pattern. Reference past mistakes directly when relevant.
+
 Please analyze the code and respond in this exact format:
 
 ## Weekly Summary
@@ -29,7 +31,7 @@ Please analyze the code and respond in this exact format:
 - Specific, actionable feedback
 
 ## Mistake Patterns Detected
-- List any recurring mistakes
+- List any recurring mistakes (especially ones from previous weeks)
 
 ## Recommended Problems for Next Week
 1. Problem Name - Difficulty - Link
