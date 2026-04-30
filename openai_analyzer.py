@@ -6,6 +6,8 @@ client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
 def analyze_code_with_openai(code_snippets, user_goal, previous_mistakes=""):
     prompt = f"""You are an expert LeetCode coach and mentor.
 
+Use relevant emojis throughout your response to make it more engaging and visually appealing.
+
 User's current focus area: {user_goal}
 
 Here is the code the user pushed this week:
@@ -39,7 +41,7 @@ Please analyze the code and respond in this exact format:
 Keep the tone supportive but honest. Be specific and reference actual code patterns when possible."""
 
     response = client.chat.completions.create(
-        model="gpt-4o-mini",                    # Change to "gpt-4o" if you want more powerful (but more expensive)
+        model="gpt-4o-mini",                    
         messages=[{"role": "user", "content": prompt}],
         max_tokens=2000,
         temperature=0.7
