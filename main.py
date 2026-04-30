@@ -1,5 +1,6 @@
 from github_monitor import get_recent_commits
-from claude_analyzer import analyze_code_with_claude
+# from claude_analyzer import analyze_code_with_claude
+from openai_analyzer import analyze_code_with_openai
 from email_sender import send_weekly_email
 from progress_tracker import get_recent_mistakes
 import os
@@ -19,7 +20,8 @@ def run_weekly_analysis():
     previous_mistakes = get_recent_mistakes()
     
     print("🧠 Sending code to Claude for analysis...")
-    analysis = analyze_code_with_claude(combined_code, user_goal, previous_mistakes)
+    # analysis = analyze_code_with_claude(combined_code, user_goal, previous_mistakes)
+    analysis = analyze_code_with_openai(combined_code, user_goal, previous_mistakes)
     
     print("📧 Sending weekly email...")
     send_weekly_email(analysis)
