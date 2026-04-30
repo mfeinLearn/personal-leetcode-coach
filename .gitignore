@@ -69,8 +69,8 @@ env.bak/
 .env.*.local
 
 # Local data files (user-specific progress and goals)
-user_progress.json
-user_goals.json
+# user_progress.json
+# user_goals.json
 
 # macOS
 .DS_Store
